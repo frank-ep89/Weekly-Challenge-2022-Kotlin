@@ -24,21 +24,21 @@
 #
 
 #
-#    Tabla de referencias de las efectividades entre tipos
+#    Tabla de referencias de las efectividades entre tipos (Perspectiva/Orientación: Atacante -> Defensor)
 #
 #           X2                      X1                          X0.5
-#    Agua    Fuego           Fuego       Electrico       Agua        Agua
-#    Fuego   Planta          Planta      Electrico       Agua        Planta
-#    Planta  Agua            Electrico   Fuego           Agua        Electrico
-#    Electrico Agua                                      Fuego       Agua
+#    Agua    Fuego           Fuego       Eléctrico       Agua        Agua
+#    Fuego   Planta          Planta      Eléctrico       Agua        Planta
+#    Planta  Agua            Eléctrico   Fuego           Agua        Eléctrico
+#    Eléctrico Agua                                      Fuego       Agua
 #                                                        Fuego       Fuego
 #                                                        Planta      Fuego
 #                                                        Planta      Planta
-#                                                        Electrico   Planta
-#                                                        Electrico   Electrico
+#                                                        Eléctrico   Planta
+#                                                        Eléctrico   Eléctrico
 #
 
-dano = float(0.0)
+dano = 0.0
 efectividad_final = 0.0
 nombre_pokemon_1 = ""
 nombre_pokemon_2 = ""
@@ -50,7 +50,6 @@ defensa_pokemon_1 = 0
 defensa_pokemon_2 = 0
 salud_pokemon_1 = 0
 salud_pokemon_2 = 0
-conteo_parametros = 0
 
 def calcular_efectividad(tipo_pokemon_1, tipo_pokemon_2):
     if tipo_pokemon_1 == "" or type(tipo_pokemon_1) is not str:
@@ -63,23 +62,95 @@ def calcular_efectividad(tipo_pokemon_1, tipo_pokemon_2):
         return
     else:
         tipo_pokemon_2 = tipo_pokemon_2.title()
-    if (tipo_pokemon_1 == "Fuego" and tipo_pokemon_2 == "Electrico") or (tipo_pokemon_1 == "Planta" and tipo_pokemon_2 == "Electrico") or (tipo_pokemon_1 == "Electrico" and tipo_pokemon_2 == "Fuego"):
+    if (tipo_pokemon_1 == "Fuego" and tipo_pokemon_2 == "Eléctrico") or (tipo_pokemon_1 == "Planta" and tipo_pokemon_2 == "Eléctrico") or (tipo_pokemon_1 == "Eléctrico" and tipo_pokemon_2 == "Fuego"):
         efectividad = 1
-    elif (tipo_pokemon_1 == "Agua" and tipo_pokemon_2 == "Fuego") or (tipo_pokemon_1 == "Fuego" and tipo_pokemon_2 == "Planta") or (tipo_pokemon_1 == "Planta" and tipo_pokemon_2 == "Agua") or (tipo_pokemon_1 == "Electrico" and tipo_pokemon_2 == "Agua"):
+    elif (tipo_pokemon_1 == "Agua" and tipo_pokemon_2 == "Fuego") or (tipo_pokemon_1 == "Fuego" and tipo_pokemon_2 == "Planta") or (tipo_pokemon_1 == "Planta" and tipo_pokemon_2 == "Agua") or (tipo_pokemon_1 == "Eléctrico" and tipo_pokemon_2 == "Agua"):
         efectividad = 2
-    elif (tipo_pokemon_1 == "Agua" and tipo_pokemon_2 == "Agua") or (tipo_pokemon_1 == "Agua" and tipo_pokemon_2 == "Planta") or (tipo_pokemon_1 == "Agua" and tipo_pokemon_2 == "Electrico") or (tipo_pokemon_1 == "Fuego" and tipo_pokemon_2 == "Agua") or (tipo_pokemon_1 == "Fuego" and tipo_pokemon_2 == "Fuego") or (tipo_pokemon_1 == "Planta" and tipo_pokemon_2 == "Fuego") or (tipo_pokemon_1 == "Planta" and tipo_pokemon_2 == "Planta") or (tipo_pokemon_1 == "Electrico" and tipo_pokemon_2 == "Planta") or (tipo_pokemon_1 == "Electrico" and tipo_pokemon_2 == "Electrico"):
+    elif (tipo_pokemon_1 == "Agua" and tipo_pokemon_2 == "Agua") or (tipo_pokemon_1 == "Agua" and tipo_pokemon_2 == "Planta") or (tipo_pokemon_1 == "Agua" and tipo_pokemon_2 == "Eléctrico") or (tipo_pokemon_1 == "Fuego" and tipo_pokemon_2 == "Agua") or (tipo_pokemon_1 == "Fuego" and tipo_pokemon_2 == "Fuego") or (tipo_pokemon_1 == "Planta" and tipo_pokemon_2 == "Fuego") or (tipo_pokemon_1 == "Planta" and tipo_pokemon_2 == "Planta") or (tipo_pokemon_1 == "Eléctrico" and tipo_pokemon_2 == "Planta") or (tipo_pokemon_1 == "Eléctrico" and tipo_pokemon_2 == "Eléctrico"):
         efectividad = 0.5
     return efectividad
 
-def validar_entradas(entrada):
-    if entrada == "":
-        print("El valor definido del parámetro es vacío.")
-        return 0
-    elif type(entrada) is not str:
-        print("El valor definido del parámetro no es una cadena de texto.")
-        return 0
-    else:
-        return 1
+def validar_entradas():
+    global nombre_pokemon_1
+    global nombre_pokemon_2
+    global tipo_pokemon_1
+    global tipo_pokemon_2
+    global ataque_pokemon_1
+    global ataque_pokemon_2
+    global defensa_pokemon_1
+    global defensa_pokemon_2
+    global salud_pokemon_1
+    global salud_pokemon_2
+    validacion = 0
+    while validacion <= 10:
+        if nombre_pokemon_1 == "" and type(nombre_pokemon_1) is not str:
+            print("El nombre del primer pokémon es vacío o no corresponde a un valor de texto.\nIntente de nuevo.")
+            break
+        elif nombre_pokemon_1 != "" and type(nombre_pokemon_1) is str:
+            validacion += 1
+        if nombre_pokemon_2 == "" and type(nombre_pokemon_2) is not str:
+            print("El nombre del segundo pokémon es vacío o no corresponde a un valor de texto.\nIntente de nuevo.")
+            break
+        elif nombre_pokemon_2 != "" and type(nombre_pokemon_2) is str:
+            validacion += 1
+        if tipo_pokemon_1 == "" and type(tipo_pokemon_1) is not str:
+            print("El tipo del primer pokémon es vacío o no corresponde a un valor de texto.\nIntente de nuevo.")
+            break
+        elif tipo_pokemon_1 != "" and type(tipo_pokemon_1) is str:
+            validacion += 1
+        if tipo_pokemon_2 == "" and type(tipo_pokemon_2) is not str:
+            print("El tipo del segundo pokémon es vacío o no corresponde a un valor de texto.\nIntente de nuevo.")
+            break
+        elif tipo_pokemon_2 != "" and type(tipo_pokemon_2) is str:
+            validacion += 1
+        if type(ataque_pokemon_1) is int:
+            if ataque_pokemon_1 > 0 and ataque_pokemon_1 < 100:
+                validacion += 1
+            else:
+                print("El valor del ataque ingresado para el primer pokémon es menor que 1 o mayor que 100.\nIntente de nuevo.")
+                break
+        elif type(ataque_pokemon_1) is not int:
+            print("El valor del ataque del primer pokémon no corresponde a un valor numérico entre 1 y 100.")
+        if type(ataque_pokemon_2) is int:
+            if ataque_pokemon_2 > 0 and ataque_pokemon_2 < 100:
+                validacion += 1
+            else:
+                print("El valor del ataque ingresado para el segundo pokémon es menor que 1 o mayor que 100.\nIntente de nuevo.")
+                break
+        elif type(ataque_pokemon_2) is not int:
+            print("El valor del ataque del segundo pokémon no corresponde a un valor numérico entre 1 y 100.")
+        if type(defensa_pokemon_1) is int:
+            if defensa_pokemon_1 > 0 and defensa_pokemon_1 < 100:
+                validacion += 1
+            else:
+                print("El valor de la defensa ingresado para el primer pokémon es menor que 1 o mayor que 100.\nIntente de nuevo.")
+                break
+        elif type(defensa_pokemon_1) is not int:
+            print("El valor de la defensa del primer pokémon no corresponde a un valor numérico entre 1 y 100.")        
+        if type(defensa_pokemon_2) is int:
+            if defensa_pokemon_2 > 0 and defensa_pokemon_2 < 100:
+                validacion += 1
+            else:
+                print("El valor de la defensa ingresado para el segundo pokémon es menor que 1 o mayor que 100.\nIntente de nuevo.")
+                break
+        elif type(defensa_pokemon_2) is not int:
+            print("El valor de la defensa del segundo pokémon no corresponde a un valor numérico entre 1 y 100.")
+        if type(salud_pokemon_1) is int:
+            if salud_pokemon_1 > 0 and salud_pokemon_1 < 100:
+                validacion += 1
+            else:
+                print("El valor de la salud ingresado para el primer pokémon es menor que 1 o mayor que 100.\nIntente de nuevo.")
+                break
+        elif type(salud_pokemon_1) is not int:
+            print("El valor de la salud del primer pokémon no corresponde a un valor numérico entre 1 y 100.")        
+        if type(salud_pokemon_2) is int:
+            if salud_pokemon_2 > 0 and salud_pokemon_2 < 100:
+                validacion += 1
+            else:
+                print("El valor de la salud ingresado para el segundo pokémon es menor que 1 o mayor que 100.\nIntente de nuevo.")
+                break
+        elif type(salud_pokemon_2) is not int:
+            print("El valor de la salud del segundo pokémon no corresponde a un valor numérico entre 1 y 100.")
 
 def dano_ataque_pokemon_1():
     global nombre_pokemon_1
@@ -157,39 +228,40 @@ def inicia_batalla():
     print("¡INICIA LA BATALLA POKÉMON!")
     if decision == "1":
         nombre_pokemon_1 = input("Ingresa el nombre del primer pokémon: ")
-        tipo_pokemon_1 = input("Ingresa el tipo de {}: ".format(nombre_pokemon_1))
+        tipo_pokemon_1 = input("Ingresa el tipo de {} (Agua, Fuego, Planta y Eléctrico): ".format(nombre_pokemon_1))
         salud_pokemon_1 = int(input("Ingresa la salud de {}: ".format(nombre_pokemon_1)))
-        ataque_pokemon_1 = int(input("Ingresa el ataque de {}: ".format(nombre_pokemon_1)))
-        defensa_pokemon_1 = int(input("Ingresa la defensa de {}: ".format(nombre_pokemon_1)))
+        ataque_pokemon_1 = int(input("Ingresa el ataque de {} (un valor entre 1 y 100): ".format(nombre_pokemon_1)))
+        defensa_pokemon_1 = int(input("Ingresa la defensa de {} (un valor entre 1 y 100): ".format(nombre_pokemon_1)))
         nombre_pokemon_2 = input("Ingresa el nombre del segundo pokémon: ")
         tipo_pokemon_2 = input("Ingresa el tipo de {}: ".format(nombre_pokemon_2))
         salud_pokemon_2 = int(input("Ingresa la salud de {}: ".format(nombre_pokemon_2)))
-        ataque_pokemon_2 = int(input("Ingresa el ataque de {}: ".format(nombre_pokemon_2)))
-        defensa_pokemon_2 = int(input("Ingresa la defensa de {}: ".format(nombre_pokemon_2)))
+        ataque_pokemon_2 = int(input("Ingresa el ataque de {} (un valor entre 1 y 100): ".format(nombre_pokemon_2)))
+        defensa_pokemon_2 = int(input("Ingresa la defensa de {} (un valor entre 1 y 100): ".format(nombre_pokemon_2)))
+        validar_entradas()
         while salud_pokemon_1 > 0 or salud_pokemon_2 > 0:
             dano_ataque_pokemon_1()
             if salud_pokemon_2 == 0 or salud_pokemon_2 < 0:
                 print("El pokémon {} ha sido vencido.".format(nombre_pokemon_2))
-                print("El ganador es {}.".format(nombre_pokemon_1))
+                print("El pokémon ganador es {}.".format(nombre_pokemon_1))
                 break
             dano_ataque_pokemon_2()
             if salud_pokemon_1 == 0 or salud_pokemon_1 < 0:
                 print("El pokémon {} ha sido vencido.".format(nombre_pokemon_1))
-                print("El ganador es {}.".format(nombre_pokemon_2))
+                print("El pokémon ganador es {}.".format(nombre_pokemon_2))
                 break
     elif decision == "2":
-        carga_valores_pokemon_1("Pikachu", "Electrico", 100, 66, 48)
+        carga_valores_pokemon_1("Pikachu", "Eléctrico", 100, 66, 48)
         carga_valores_pokemon_2("Magmar", "Fuego", 132, 73, 59)
         while salud_pokemon_1 > 0 or salud_pokemon_2 > 0:
             dano_ataque_pokemon_1()
             if salud_pokemon_2 == 0 or salud_pokemon_2 < 0:
                 print("El pokémon {} ha sido vencido.".format(nombre_pokemon_2))
-                print("El ganador es {}.".format(nombre_pokemon_1))
+                print("El pokémon ganador es {}.".format(nombre_pokemon_1))
                 break
             dano_ataque_pokemon_2()
             if salud_pokemon_1 == 0 or salud_pokemon_1 < 0:
                 print("El pokémon {} ha sido vencido.".format(nombre_pokemon_1))
-                print("El ganador es {}.".format(nombre_pokemon_2))
+                print("El pokémon ganador es {}.".format(nombre_pokemon_2))
                 break
     elif decision == "3":
         carga_valores_pokemon_1("Torterra", "Planta", 253, 108, 96)
@@ -198,12 +270,12 @@ def inicia_batalla():
             dano_ataque_pokemon_1()
             if salud_pokemon_2 == 0 or salud_pokemon_2 < 0:
                 print("El pokémon {} ha sido vencido.".format(nombre_pokemon_2))
-                print("El ganador es {}.".format(nombre_pokemon_1))
+                print("El pokémon ganador es {}.".format(nombre_pokemon_1))
                 break
             dano_ataque_pokemon_2()
             if salud_pokemon_1 == 0 or salud_pokemon_1 < 0:
                 print("El pokémon {} ha sido vencido.".format(nombre_pokemon_1))
-                print("El ganador es {}.".format(nombre_pokemon_2))
+                print("El pokémon ganador es {}.".format(nombre_pokemon_2))
                 break
     elif decision != "1" and decision != "2" and decision != 3:
         print("El valor ingresado no es una decisión válida.")
