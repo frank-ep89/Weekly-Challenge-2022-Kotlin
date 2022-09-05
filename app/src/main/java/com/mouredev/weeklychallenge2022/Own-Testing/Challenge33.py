@@ -26,24 +26,25 @@ lista_combinada = list()
 ano_a_validar = 0
 
 def calcular_ano_ciclo_sexagenario(ano):
-    validar_ano_ingresado(ano)
-    crear_lista_combinada()
-    if ano > 4:
-        ano -= 3
-        ano = ano - (60 * (ano // 60))
-    elif ano <= 3:
-        ano = abs(ano) + 2
-        ano = 60 - (ano - (60 * (ano // 60)))
-    print("El año {} corresponde a: {}".format(ano_a_validar, lista_combinada[ano - 1]))
+    if validar_ano_ingresado(ano) == True:
+        crear_lista_combinada()
+        if ano > 4:
+            ano -= 3
+            ano = ano - (60 * (ano // 60))
+        elif ano <= 3:
+            ano = abs(ano) + 2
+            ano = 60 - (ano - (60 * (ano // 60)))
+        print("El año {} corresponde a: {}".format(ano_a_validar, lista_combinada[ano - 1]))
 
 def validar_ano_ingresado(ano):
-    validacion = True
-    while validacion:
+    validacion = False
+    while not validacion:
         if type(ano) is not int:
             print("El año ingresado no es un número entero.\nIntente de nuevo.")
             break
         elif type(ano) is int:
-            validacion = False
+            validacion = True
+    return validacion
 
 def crear_lista_combinada():
     global lista_combinada
@@ -65,5 +66,5 @@ def crear_lista_combinada():
             else:
                 indice_elemento = 0
 
-ano_a_validar = -246
+ano_a_validar = "-246"
 calcular_ano_ciclo_sexagenario(ano_a_validar)
